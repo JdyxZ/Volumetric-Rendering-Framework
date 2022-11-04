@@ -8,23 +8,28 @@
 #include "camera.h"
 #include "material.h"
 
+//Use prefix std
+using namespace std;
+
+//Forward declaration
 class Light;
 
 class SceneNode {
 public:
 
-	static unsigned int lastNameId;
-
+	//Constructors and desctructors
 	SceneNode();
 	SceneNode(const char* name);
 	~SceneNode();
 
+	//Attributes
+	string name;
 	Material * material = NULL;
-	std::string name;
-
 	Mesh* mesh = NULL;
 	Matrix44 model;
+	static unsigned int lastNameId;
 
+	//Virtual methods
 	virtual void render(Camera* camera);
 	virtual void renderWireframe(Camera* camera);
 	virtual void renderInMenu();

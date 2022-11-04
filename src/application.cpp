@@ -50,10 +50,12 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		StandardMaterial* mat = new StandardMaterial();
 		node->material = mat;
 		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
-		node_list.push_back(node);
+		//node_list.push_back(node);
 
 		// TODO: create all the volumes to use in the app
-		// ...
+		VolumeNode* volume_node = new VolumeNode("test", "data/volumes/brain.vl");
+		node_list.push_back(volume_node);
+
 	}
 	
 	//hide the cursor
@@ -193,8 +195,8 @@ void Application::onFileChanged(const char* filename)
 
 void Application::renderInMenu() {
 
-	if (ImGui::TreeNode("Scene")) {
-		//
+	if (ImGui::TreeNode("Scene")) 
+	{
 		ImGui::TreePop();
 	}
 

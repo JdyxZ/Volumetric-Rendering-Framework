@@ -9,6 +9,7 @@
 #include "camera.h"
 #include "utils.h"
 #include "scenenode.h"
+#include "volumenode.h"
 
 
 class Application

@@ -14,20 +14,27 @@ StandardMaterial::~StandardMaterial()
 
 }
 
-void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
+void StandardMaterial::setUniforms(Camera* camera, Matrix44 model, float step_length, Vector3 brightness)
 {
+	//Inverse model matrix
+	Matrix44 inverse_model = model;
+	inverse_model.inverse();
+
 	//upload node uniforms
 	shader->setUniform("u_viewprojection", camera->viewprojection_matrix);
 	shader->setUniform("u_camera_position", camera->eye);
 	shader->setUniform("u_model", model);
+	shader->setUniform("u_inverse_model", inverse_model);
 	shader->setUniform("u_time", Application::instance->time);
 	shader->setUniform("u_color", color);
+	shader->setUniform("u_step_length", step_length);
+	shader->setUniform("u_brightness", brightness);
 
 	if (texture)
 		shader->setUniform("u_texture", texture);
 }
 
-void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
+void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera, float step_length, Vector3 brightness)
 {
 	if (mesh && shader)
 	{
@@ -35,7 +42,7 @@ void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 		shader->enable();
 
 		//upload uniforms
-		setUniforms(camera, model);
+		setUniforms(camera, model, step_length, brightness);
 
 		//do the draw call
 		mesh->render(GL_TRIANGLES);
@@ -61,7 +68,7 @@ WireframeMaterial::~WireframeMaterial()
 
 }
 
-void WireframeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
+void WireframeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera, float step_length, Vector3 brightness)
 {
 	if (shader && mesh)
 	{
@@ -71,7 +78,7 @@ void WireframeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 		shader->enable();
 
 		//upload material specific uniforms
-		setUniforms(camera, model);
+		setUniforms(camera, model, step_length, brightness);
 
 		//do the draw call
 		mesh->render(GL_TRIANGLES);

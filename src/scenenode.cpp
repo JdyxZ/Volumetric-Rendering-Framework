@@ -8,7 +8,7 @@ unsigned int mesh_selected = 0;
 
 SceneNode::SceneNode()
 {
-	this->name = std::string("Node" + std::to_string(lastNameId++));
+	this->name = string("Scene Node" + to_string(lastNameId++));
 }
 
 SceneNode::SceneNode(const char * name)

@@ -43,6 +43,40 @@ void Volume::clear() {
 	width = height = depth = 0;
 }
 
+bool Volume::load(const char* filename)
+{
+	std::string str = filename;
+
+	//Check wheter there is extension
+	if (str.find(".") == std::string::npos)
+	{
+		std::cout << "[ERROR]: No volume format detected" << std::endl;
+		return false;
+	}
+
+	//Extension
+	std::string extension = str.substr(str.find(".") + 1, str.length());
+
+	//Check file extension
+	if (extension == "vl")
+	{
+		return loadVL(filename);
+	}
+	else if (extension == "pvm")
+	{
+		return loadPVM(filename);
+	}
+	else if (extension == "png" || extension == "tga")
+	{
+		return loadPNG(filename);
+	}
+	else
+	{
+		std::cout << "[ERROR]: Unsupported Volume format" << std::endl;
+		return false;
+	}
+}
+
 bool Volume::loadVL(const char* filename){
 	long time = getTime();
 	std::cout << " + Volume loading: " << filename << " ... ";
