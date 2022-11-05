@@ -28,6 +28,7 @@ class Shader
 
 public:
 	static Shader* current;
+	std::string name;
 
 	Shader();
 	virtual ~Shader();

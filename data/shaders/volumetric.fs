@@ -16,25 +16,21 @@ void main()
 {
 	//Initialize variables
 	vec3 sample_position = v_position;
-	vec3 local_camera_position = (u_inverse_model * vec4(u_camera_position, 1.0)).xyz;
-	vec3 step_vector = normalize(v_position - local_camera_position) * u_step_length;
-	vec3 texture_coordinates = vec3(.0);
-	float density = 0.0;
-	vec4 sample_color = vec4(.0);
+	vec3 camera_local_position = (u_inverse_model * vec4(u_camera_position, 1.0)).xyz;
+	vec3 step_vector = u_step_length * normalize(sample_position - camera_local_position);
 	vec4 output_color = vec4(.0);
-	bool position_in_range = false;
 
 	//Main loop
 	for( int i = 0; i < ITERATIONS; ++i )
 	{
 		//Get texture coordinates
-		texture_coordinates = (sample_position + vec3(1.0)) / 2.0;
+		vec3 texture_coordinates = (sample_position + vec3(1.0)) / 2.0;
 
 		//Get density value
-		density = texture3D(u_texture, texture_coordinates).x;
+		float density = texture3D(u_texture, texture_coordinates).x;
 
 		//Classification: Map color
-		sample_color = vec4(density, density, density, density);
+		vec4 sample_color = vec4(density);
 		sample_color.rgb *= sample_color.a;
 
 		//Composition: Accumulate color
@@ -44,25 +40,14 @@ void main()
 		sample_position += step_vector;
 
 		//Update auxiliar variable
-		position_in_range = sample_position.x < 1.0 && sample_position.y < 1.0 && sample_position.z < 1.0 && sample_position.x > -1.0 && sample_position.y > -1.0 && sample_position.z > -1.0;
+		bool position_in_range = sample_position.x < 1.0 && sample_position.y < 1.0 && sample_position.z < 1.0 && sample_position.x > -1.0 && sample_position.y > -1.0 && sample_position.z > -1.0;
 
 		//Termination
-		if(!position_in_range) //out of range
-		{
-			break;
-		}
-		else if(output_color.a >= 1.0)
-		{
-			break;
-		}
-		else if(output_color.a < 0.01)
-		{
-			discard;
-		}
-
+		if(!position_in_range) break;
+		else if(output_color.a >= 1.0) break;
+		else if(output_color.a < 0.01) discard;
 	}
 
 	//Output
-	gl_FragColor = output_color;
-	//gl_FragColor = u_brightness * u_color * output_color;
+	gl_FragColor = u_brightness * u_color * output_color;	
 }

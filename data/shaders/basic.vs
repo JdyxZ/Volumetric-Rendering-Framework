@@ -1,12 +1,12 @@
+//Attributes
 attribute vec3 a_vertex;
 attribute vec3 a_normal;
 attribute vec2 a_uv;
 attribute vec4 a_color;
 
-uniform vec3 u_camera_position;
-
-uniform mat4 u_model;
+//Uniforms
 uniform mat4 u_viewprojection;
+uniform mat4 u_model;
 
 //this will store the color for the pixel shader
 varying vec3 v_position;

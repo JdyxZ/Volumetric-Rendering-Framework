@@ -44,6 +44,16 @@ public:
 	void renderInMenu();
 };
 
+class WireframeMaterial : public StandardMaterial {
+public:
+
+	WireframeMaterial();
+	~WireframeMaterial();
+
+	void render(Mesh* mesh, Matrix44 model, Camera* cameras);
+};
+
+// TODO: Derived class VolumeMaterial
 class VolumeMaterial : public Material
 {
 public:
@@ -57,6 +67,7 @@ public:
 	Volume* current_volume = NULL;
 	string current_volume_key;
 	loadedVolumes volumes;
+	Matrix44 inverse_model;
 	float step_length;
 	float brightness;
 
@@ -68,16 +79,5 @@ public:
 	//Class methods
 	void loadVolumes();
 };
-
-class WireframeMaterial : public StandardMaterial {
-public:
-
-	WireframeMaterial();
-	~WireframeMaterial();
-
-	void render(Mesh* mesh, Matrix44 model, Camera* cameras);
-};
-
-// TODO: Derived class VolumeMaterial
 
 #endif
