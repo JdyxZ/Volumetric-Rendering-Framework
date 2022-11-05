@@ -85,7 +85,7 @@ VolumeMaterial::VolumeMaterial()
 	//Parameters
 	color = vec4(1.f, 1.f, 1.f, 1.f);
 	step_length = 0.001;
-	brightness = 1.0;
+	brightness = 15.f;
 	alpha_cutoff = 0.05;
 
 	//Shader
