@@ -63,6 +63,6 @@ void main()
 	}
 
 	//Output
-	gl_FragColor = vec4(u_brightness, 1.0) * output_color;
-	//gl_FragColor = vec4(u_brightness, 1.0) * u_color * output_color;
+	gl_FragColor = output_color;
+	//gl_FragColor = u_brightness * u_color * output_color;
 }

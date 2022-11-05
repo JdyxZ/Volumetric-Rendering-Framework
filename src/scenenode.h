@@ -2,7 +2,6 @@
 #define SCENENODE_H
 
 #include "framework.h"
-
 #include "shader.h"
 #include "mesh.h"
 #include "camera.h"

@@ -53,7 +53,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		//node_list.push_back(node);
 
 		// TODO: create all the volumes to use in the app
-		VolumeNode* volume_node = new VolumeNode("test", "data/volumes/brain.vl");
+		VolumeNode* volume_node = new VolumeNode("Volume node");
 		node_list.push_back(volume_node);
 
 	}
