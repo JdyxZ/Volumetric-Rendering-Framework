@@ -84,8 +84,9 @@ VolumeMaterial::VolumeMaterial()
 {
 	//Parameters
 	color = vec4(1.f, 1.f, 1.f, 1.f);
-	step_length = 0.0001;
+	step_length = 0.1;
 	brightness = 1.0;
+	alpha_cutoff = 0.001;
 
 	//Shader
 	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/volumetric.fs");
@@ -117,6 +118,7 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_color", color);
 	shader->setUniform("u_step_length", step_length);
 	shader->setUniform("u_brightness", brightness);
+	shader->setUniform("u_alpha_cutoff", alpha_cutoff);
 
 	if (current_texture)
 		shader->setUniform("u_texture", current_texture);
@@ -163,8 +165,9 @@ void VolumeMaterial::renderInMenu()
 
 	//Float sliders
 	ImGui::SliderFloat3("color", &color.x, 0.0, 1.0, "%.3f", 10.f);
-	ImGui::SliderFloat("Step length", &step_length, 0.00000000000001, 0.5, "%.14f", 10.f);
+	ImGui::SliderFloat("Step length", &step_length, 0.000001, 50.f, "%.6f", 10.f);
 	ImGui::SliderFloat("Brightness", &brightness, 0.0, 10.0, "%.3f", 10.f);
+	ImGui::SliderFloat("Alpha cutoff", &alpha_cutoff, 0.00000001, 1.f, "%.8f", 10.f);
 }
 
 void VolumeMaterial::loadVolumes()

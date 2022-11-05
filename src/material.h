@@ -70,6 +70,7 @@ public:
 	Matrix44 inverse_model;
 	float step_length;
 	float brightness;
+	float alpha_cutoff;
 
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);

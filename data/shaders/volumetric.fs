@@ -4,6 +4,7 @@ uniform vec3 u_camera_position;
 uniform mat4 u_inverse_model;
 uniform float u_step_length;
 uniform float u_brightness;
+uniform float u_alpha_cutoff;
 uniform sampler3D u_texture;
 
 //Interpolated
@@ -43,9 +44,9 @@ void main()
 		bool position_in_range = sample_position.x < 1.0 && sample_position.y < 1.0 && sample_position.z < 1.0 && sample_position.x > -1.0 && sample_position.y > -1.0 && sample_position.z > -1.0;
 
 		//Termination
-		if(!position_in_range) break;
+		if(output_color.a < u_alpha_cutoff) discard;
 		else if(output_color.a >= 1.0) break;
-		else if(output_color.a < 0.01) discard;
+		else if(!position_in_range) break;
 	}
 
 	//Output
