@@ -1,0 +1,49 @@
+# Prerequisites
+*.d
+/.DS_Store
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+*.ipch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+/.vs
+/visualstudio/.vs
+visualstudio/VS2015/Debug
+visualstudio/VS2015/Release
+visualstudio/VS2015/Final
+*.iobj
+*.pdb
+*.ipdb
+*.tlog
+*.tlog
+*.tlog
+*.log
+*.pdb
+*.tlog
