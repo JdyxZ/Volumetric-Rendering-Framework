@@ -73,6 +73,8 @@ public:
 	float alpha_cutoff;
 
 	bool jittering; 
+	bool tf_enabled;
+	Texture* transfer_function;
 
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);

@@ -8,6 +8,8 @@ uniform sampler3D u_texture;
 
 uniform bool u_jittering;
 uniform sampler2D u_blue_noise;
+uniform bool u_tf_enabled;
+uniform sampler2D u_tf;
 
 //Interpolated
 varying vec3 v_position;
@@ -47,7 +49,16 @@ void main()
 		float density = texture3D(u_texture, texture_coordinates).x;
 
 		//Classification: Map color
-		vec4 sample_color = vec4(density) * u_color;
+		vec4 sample_color;
+
+		if(u_tf_enabled)
+		{
+			sample_color = texture2D(u_tf, vec2(density, 0.5));
+		}
+		else
+		{
+			sample_color = vec4(density) * u_color;
+		}
 		sample_color.rgb *= sample_color.a;
 
 		//Composition: Accumulate color

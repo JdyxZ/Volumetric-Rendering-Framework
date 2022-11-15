@@ -89,6 +89,7 @@ VolumeMaterial::VolumeMaterial()
 	alpha_cutoff = 0.05;
 
 	jittering = true; 
+	tf_enabled = true;
 
 	//Shader
 	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/volumetric.fs");
@@ -102,6 +103,9 @@ VolumeMaterial::VolumeMaterial()
 
 	//Texture
 	current_texture = volumes[current_volume_key].second;
+
+	// Tranfer Function
+	transfer_function = Texture::Get("data/images/TF_test.png");
 }
 
 VolumeMaterial::~VolumeMaterial()
@@ -121,8 +125,12 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_brightness", brightness);
 	shader->setUniform("u_alpha_cutoff", alpha_cutoff);
 
+	// jittering uniforms
 	shader->setUniform("u_jittering", jittering);
-	shader->setUniform("u_blue_noise", Application::instance->blue_noise);
+	shader->setUniform("u_blue_noise", Application::instance->blue_noise, 1);
+	// TF uniforms
+	shader->setUniform("u_tf", transfer_function, 2);
+	shader->setUniform("u_tf_enabled", tf_enabled);
 
 	if (current_texture)
 		shader->setUniform("u_texture", current_texture);
@@ -179,6 +187,7 @@ void VolumeMaterial::renderInMenu()
 	ImGui::SliderFloat("Alpha cutoff", &alpha_cutoff, 0.00000001, 1.f, "%.8f", 10.f);
 
 	ImGui::Checkbox("Jittering", &jittering);
+	ImGui::Checkbox("Transfer Function", &tf_enabled);
 }
 
 void VolumeMaterial::loadVolumes()
