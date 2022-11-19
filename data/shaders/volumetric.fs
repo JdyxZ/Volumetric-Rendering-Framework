@@ -5,6 +5,11 @@ uniform float u_step_length;
 uniform float u_brightness;
 uniform float u_alpha_cutoff;
 uniform sampler3D u_texture;
+uniform sampler2D u_blue_noise;
+uniform int u_blue_noise_width;
+uniform bool u_jittering;
+uniform int u_jittering_type;
+uniform bool u_transfer_function;
 
 //Interpolated
 varying vec3 v_position;
@@ -12,11 +17,34 @@ varying vec3 v_position;
 //Constants
 #define ITERATIONS 1000
 
+//Auxiliar methods
+vec3 compute_offset()
+{
+	if(u_jittering)
+	{
+		//Noise texture
+		if(u_jittering_type == 0)
+		{
+			gl_FragColor = vec4(1.0,0.0,0.0,1.0);	
+			return texture2D(u_blue_noise, gl_FragCoord.xy / u_blue_noise_width).xyz; 
+		}
+		//Pseudo-random generator
+		else 
+		{
+			gl_FragColor = vec4(0.0,1.0,0.0,1.0);
+			return fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+		}
+	}
+	return vec3(.0);
+}
+
+//Main
 void main()
 {
 	//Initialize variables
-	vec3 sample_position = v_position;
-	vec3 step_vector = u_step_length * normalize(sample_position - u_camera_local_position);
+	vec3 offset = compute_offset();
+	vec3 step_vector = u_step_length * normalize(v_position - u_camera_local_position);
+	vec3 sample_position = v_position + step_vector * offset;
 	vec4 output_color = vec4(.0);
 
 	//Main loop
@@ -50,5 +78,5 @@ void main()
 	if(output_color.a < u_alpha_cutoff) discard;
 
 	//Output
-	gl_FragColor = u_brightness * output_color;	
+	//gl_FragColor = u_brightness * output_color;	
 }

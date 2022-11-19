@@ -21,6 +21,13 @@ using namespace std;
 //Typedef
 typedef std::map<std::string, std::pair<Volume*, Texture*>> loadedVolumes;
 
+//Jittering types
+enum Jittering
+{
+	NoiseTexture,
+	RandomGenerator
+};
+
 class Material {
 public:
 
@@ -68,9 +75,13 @@ public:
 	string current_volume_key;
 	loadedVolumes volumes;
 	Matrix44 inverse_model;
+	Texture* blue_noise = NULL;
 	float step_length;
 	float brightness;
 	float alpha_cutoff;
+	bool jittering;
+	Jittering jittering_type;
+	bool transfer_function;
 
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);

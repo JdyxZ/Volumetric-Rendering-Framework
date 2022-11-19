@@ -84,7 +84,7 @@ VolumeMaterial::VolumeMaterial()
 {
 	//Parameters
 	color = vec4(1.f, 1.f, 1.f, 1.f);
-	step_length = 0.001;
+	step_length = 0.01;
 	brightness = 15.f;
 	alpha_cutoff = 0.05;
 
@@ -100,6 +100,17 @@ VolumeMaterial::VolumeMaterial()
 
 	//Texture
 	current_texture = volumes[current_volume_key].second;
+
+	//Noise texture
+	blue_noise = new Texture();
+	blue_noise->load("data/images/blueNoise.png");
+
+	//Jittering
+	jittering = false;
+	jittering_type = NoiseTexture;
+
+	//Transfer function
+	transfer_function = false;
 }
 
 VolumeMaterial::~VolumeMaterial()
@@ -118,9 +129,18 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_step_length", step_length);
 	shader->setUniform("u_brightness", brightness);
 	shader->setUniform("u_alpha_cutoff", alpha_cutoff);
+	shader->setUniform("u_blue_noise_width", blue_noise->width);
+	shader->setUniform("u_jittering", jittering);
+	shader->setUniform("u_jittering_type;", 1);
+	shader->setUniform("u_transfer_function", transfer_function);
 
+	cout << (int)jittering_type << endl;
+
+	//Textures
 	if (current_texture)
-		shader->setUniform("u_texture", current_texture);
+		shader->setUniform("u_texture", current_texture, 0);
+	if(blue_noise)
+		shader->setTexture("u_blue_noise", blue_noise, 1);
 }
 
 void VolumeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
@@ -167,6 +187,10 @@ void VolumeMaterial::renderInMenu()
 	ImGui::SliderFloat("Step length", &step_length, 0.000001, 50.f, "%.6f", 10.f);
 	ImGui::SliderFloat("Brightness", &brightness, 0.0, 50.0, "%.3f", 10.f);
 	ImGui::SliderFloat("Alpha cutoff", &alpha_cutoff, 0.00000001, 1.f, "%.8f", 10.f);
+	ImGui::Checkbox("Jittering", &jittering);
+	if(jittering) ImGui::Combo("Type", (int*)&jittering_type, "Noise texture\0Random generator", 2);
+	ImGui::Checkbox("Transfer function", &transfer_function);
+	//if(transfer_function) if(transfer_function) ImGui::Combo("Color texture",)
 }
 
 void VolumeMaterial::loadVolumes()

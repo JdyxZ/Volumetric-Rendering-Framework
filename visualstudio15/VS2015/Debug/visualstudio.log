@@ -1,43 +1,182 @@
-﻿  application.cpp
+﻿  animation.cpp
+  camera.cpp
+  box.cpp
+  box_bld.cpp
+  coldet.cpp
+  coldet_bld.cpp
+  math3d.cpp
+  mytritri.cpp
+  sysdep.cpp
+  hdre.cpp
+  ImCurveEdit.cpp
+  ImGradient.cpp
+  imgui.cpp
+  ImGuizmo.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\camera.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\camera.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\camera.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\camera.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\animation.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\animation.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\animation.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\animation.cpp)
+  imgui_impl_opengl3.cpp
+  imgui_impl_sdl.cpp
+  imgui_widgets.cpp
+  ImSequencer.cpp
+  picopng.cpp
+  pvmparser.cpp
+  textparser.cpp
+  fbo.cpp
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\extra\coldet\coldet.cpp(374,10): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+  framework.cpp
+  application.cpp
+  input.cpp
   main.cpp
   material.cpp
+  mesh.cpp
+  rendertotexture.cpp
   scenenode.cpp
+  shader.cpp
+  texture.cpp
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\extra\pvmparser.cpp(28,40): warning C4244: 'argumento': conversión de 'const __int64' a 'size_t'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\extra\pvmparser.cpp(32,52): warning C4244: 'argumento': conversión de '__int64' a 'size_t'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\extra\pvmparser.cpp(36,33): warning C4244: 'argumento': conversión de 'const __int64' a 'size_t'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\extra\pvmparser.cpp(46,46): warning C4244: 'argumento': conversión de '__int64' a 'size_t'; posible pérdida de datos
   utils.cpp
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\framework.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\framework.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\framework.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\framework.cpp)
+  volume.cpp
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\material.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\material.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\material.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\material.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\mesh.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\mesh.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\mesh.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\mesh.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\scenenode.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\animation.cpp(222,14): warning C4101: 'stbuffer': variable local sin referencia
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\fbo.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\fbo.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\fbo.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\fbo.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.cpp(1199,32): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\input.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\input.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\input.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\input.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\input.cpp(138,24): warning C4244: '=': conversión de 'float' a 'char'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\input.cpp(146,19): warning C4305: 'inicializando': truncamiento de 'double' a 'float'
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\application.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\application.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\application.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\application.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\main.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\main.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\main.cpp)
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\main.cpp)
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(334,56): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(335,64): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(360,10): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(370,16): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(87,21): warning C4305: '=': truncamiento de 'double' a 'float'
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(89,21): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\rendertotexture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\rendertotexture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\rendertotexture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\rendertotexture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\shader.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\shader.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\shader.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\shader.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1153,27): warning C4244: 'argumento': conversión de 'double' a 'const unsigned int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1154,23): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1286,40): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1286,25): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1288,44): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1288,31): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1289,31): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1296,44): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1296,31): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1298,43): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1311,30): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\texture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\texture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\texture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\texture.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\mesh.cpp(1334,30): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\utils.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\shader.cpp(185,20): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\shader.cpp(224,20): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(18,51): warning C4244: 'argumento': conversión de 'unsigned int' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(18,9): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(19,56): warning C4244: 'argumento': conversión de 'unsigned int' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(19,9): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(24,15): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(25,15): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(32,55): warning C4244: 'argumento': conversión de 'unsigned int' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(32,9): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(33,57): warning C4244: 'argumento': conversión de 'unsigned int' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(33,9): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(38,15): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(39,15): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(208,125): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,109): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\volume.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,100): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\volume.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,91): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\volume.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\framework.h(178,82): warning C4244: 'argumento': conversión de 'float' a 'unsigned char'; posible pérdida de datos (compilando archivo de origen ..\..\src\volume.cpp)
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(311,94): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(311,87): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(332,102): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(332,94): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(332,87): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(358,111): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(358,104): warning C4244: 'argumento': conversión de 'float' a 'GLsizei'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(538,18): warning C4244: '=': conversión de 'float' a 'unsigned int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(539,19): warning C4244: '=': conversión de 'float' a 'unsigned int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\texture.cpp(552,12): warning C4101: 'bytesPerPixel': variable local sin referencia
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\application.cpp(71,33): warning C4305: 'argumento': truncamiento de 'double' a 'GLclampf'
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\application.cpp(97,14): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\application.cpp(98,20): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\application.cpp(101,14): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\application.cpp(181,34): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\main.cpp(142,46): warning C4244: '=': conversión de 'Sint32' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\main.cpp(184,24): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(87,20): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(89,21): warning C4305: '=': truncamiento de 'double' a 'float'
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(187,78): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(189,81): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(101,34): warning C4552: "/": el resultado de la expresión no se usa
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(113,34): warning C4552: "/": el resultado de la expresión no se usa
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(253,20): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(254,21): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(255,22): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(257,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(258,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(259,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(261,14): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(262,11): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(271,10): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(280,20): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(281,21): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(282,22): warning C4018: '<': no coinciden signed/unsigned
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(283,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(306,27): warning C4244: 'inicializando': conversión de 'double' a 'unsigned int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(338,35): warning C4244: 'inicializando': conversión de 'float' a 'unsigned int'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\volume.cpp(357,13): warning C4244: 'inicializando': conversión de 'float' a 'Uint8'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(334,56): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(335,64): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(360,10): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(370,16): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(392,11): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(394,17): warning C4244: 'argumento': conversión de 'float' a 'const unsigned int'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(407,12): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(416,14): warning C4018: '>=': no coinciden signed/unsigned
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\application.cpp(181,34): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(456,20): warning C4018: '<': no coinciden signed/unsigned
 C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(457,59): warning C4244: 'argumento': conversión de '_Ty' a 'unsigned int'; posible pérdida de datos
           with
@@ -75,10 +214,6 @@ C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\utils.cpp(468,29): 
           [
               _Ty=float
           ]
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(167,78): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\material.cpp(169,81): warning C4305: 'argumento': truncamiento de 'double' a 'float'
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\main.cpp(142,46): warning C4244: '=': conversión de 'Sint32' a 'float'; posible pérdida de datos
-C:\University\FOURTH YEAR\Volumetric-Rendering-Framework\src\main.cpp(184,24): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
 animation.obj : warning LNK4075: se omite '/EDITANDCONTINUE' debido a la especificación '/INCREMENTAL:NO'
 LINK : warning LNK4098: la biblioteca predeterminada'LIBCMT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
 LINK : warning LNK4217: "___glewActiveTexture" importa el símbolo "glew32s.lib(glew.obj)" definido en "imgui_impl_opengl3.obj" en la función ""void __cdecl ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData *)" (?ImGui_ImplOpenGL3_RenderDrawData@@YAXPAUImDrawData@@@Z)"
