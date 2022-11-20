@@ -1,15 +1,21 @@
+//Constants
+const int MAX_TRANSFER_TEXTURES = 8; //Bear in mind the total number of slots must be less than 16 (change this value here and in material.cpp)
+
 //Uniforms
 uniform vec3 u_camera_local_position;
 uniform vec4 u_color;
 uniform float u_step_length;
 uniform float u_brightness;
 uniform float u_alpha_cutoff;
+uniform float u_density_threshold;
 uniform sampler3D u_texture;
 uniform sampler2D u_blue_noise;
-uniform int u_blue_noise_width;
+uniform float u_blue_noise_width;
 uniform bool u_jittering;
 uniform int u_jittering_type;
 uniform bool u_transfer_function;
+uniform int u_current_transfer_texture;
+uniform sampler2D u_transfer_textures[MAX_TRANSFER_TEXTURES];
 
 //Interpolated
 varying vec3 v_position;
@@ -23,16 +29,14 @@ vec3 compute_offset()
 	if(u_jittering)
 	{
 		//Noise texture
-		if(u_jittering_type == 0)
+		if(u_jittering_type == 1)
 		{
-			gl_FragColor = vec4(1.0,0.0,0.0,1.0);	
-			return texture2D(u_blue_noise, gl_FragCoord.xy / u_blue_noise_width).xyz; 
+			return texture2D(u_blue_noise, gl_FragCoord.xy / u_blue_noise_width).rgb; 
 		}
 		//Pseudo-random generator
-		else 
+		else
 		{
-			gl_FragColor = vec4(0.0,1.0,0.0,1.0);
-			return fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+			return vec3(fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453));
 		}
 	}
 	return vec3(.0);
@@ -56,12 +60,16 @@ void main()
 		//Get density value
 		float density = texture3D(u_texture, texture_coordinates).x;
 
-		//Classification: Map color
-		vec4 sample_color = vec4(density) * u_color;
-		sample_color.rgb *= sample_color.a;
+		//Apply density threshold
+		if(density <= u_density_threshold)
+		{
+			//Classification: Map color
+			vec4 sample_color = vec4(density) * u_color;
+			sample_color.rgb *= sample_color.a;
 
-		//Composition: Accumulate color
-		output_color += u_step_length * (1.0 - output_color.a) * sample_color;
+			//Composition: Accumulate color
+			output_color += u_step_length * (1.0 - output_color.a) * sample_color;
+		}
 
 		//Update position
 		sample_position += step_vector;
@@ -78,5 +86,5 @@ void main()
 	if(output_color.a < u_alpha_cutoff) discard;
 
 	//Output
-	//gl_FragColor = u_brightness * output_color;	
+	gl_FragColor = u_brightness * output_color;	
 }

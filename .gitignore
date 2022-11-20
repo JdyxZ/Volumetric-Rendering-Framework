@@ -7,11 +7,11 @@
 *.lo
 *.o
 *.obj
+*.ipch
 
 # Precompiled Headers
 *.gch
 *.pch
-*.ipch
 
 # Compiled Dynamic libraries
 *.so
@@ -34,16 +34,13 @@
 *.app
 
 /.vs
-/visualstudio/.vs
-visualstudio/VS2015/Debug
-visualstudio/VS2015/Release
-visualstudio/VS2015/Final
+visualstudio15/.vs
+visualstudio15/VS2015/Debug
+visualstudio15/VS2015/Release
+visualstudio15/VS2015/Final
 *.iobj
 *.pdb
 *.ipdb
-*.tlog
-*.tlog
-*.tlog
 *.log
 *.pdb
 *.tlog

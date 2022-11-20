@@ -590,7 +590,15 @@ void Shader::setTexture(const char* varname, unsigned int tex)
 	glActiveTexture(GL_TEXTURE0 + last_slot);
 }
 
-void Shader::setUniform1(const char* varname, int input1)
+void Shader::setUniform1(const char* varname, const bool input1)
+{
+	GLint loc = getLocation(varname, &locations);
+	CHECK_SHADER_VAR(loc, varname);
+	glUniform1i(loc, input1);
+	assert(glGetError() == GL_NO_ERROR);
+}
+
+void Shader::setUniform1(const char* varname, const int input1)
 {
 	GLint loc = getLocation(varname, &locations);
 	CHECK_SHADER_VAR(loc,varname);

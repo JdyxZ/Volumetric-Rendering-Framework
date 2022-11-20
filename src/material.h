@@ -6,7 +6,6 @@
 #include "camera.h"
 #include "mesh.h"
 #include "extra/hdre.h"
-#include "utils.h"
 #include "volume.h"
 
 #include <filesystem>
@@ -75,13 +74,17 @@ public:
 	string current_volume_key;
 	loadedVolumes volumes;
 	Matrix44 inverse_model;
-	Texture* blue_noise = NULL;
+	Texture* blue_noise;
 	float step_length;
 	float brightness;
 	float alpha_cutoff;
+	float density_threshold;
 	bool jittering;
 	Jittering jittering_type;
 	bool transfer_function;
+	int current_transfer_texture;
+	vector<Texture*> transfer_textures;
+	map<int, string> transfer_table;
 
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);
@@ -90,6 +93,7 @@ public:
 
 	//Class methods
 	void loadVolumes();
+	void loadTransferTextures();
 };
 
 #endif
