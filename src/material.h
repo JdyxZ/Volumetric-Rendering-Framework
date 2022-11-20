@@ -83,6 +83,7 @@ public:
 	Jittering jittering_type;
 	bool transfer_function;
 	int current_transfer_texture;
+	float alpha_factor;
 	vector<Texture*> transfer_textures;
 	map<int, string> transfer_table;
 

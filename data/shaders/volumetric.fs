@@ -15,6 +15,7 @@ uniform bool u_jittering;
 uniform int u_jittering_type;
 uniform bool u_transfer_function;
 uniform int u_current_transfer_texture;
+uniform float u_alpha_factor;
 uniform sampler2D u_transfer_textures[MAX_TRANSFER_TEXTURES];
 
 //Interpolated
@@ -42,6 +43,24 @@ vec3 compute_offset()
 	return vec3(.0);
 }
 
+vec4 map_color(const float density)
+{
+	vec4 color_sample;
+	if(u_transfer_function)
+	{
+		color_sample = texture2D(u_transfer_textures[0], vec2(density,1));
+		color_sample.a = clamp(color_sample.a * density * u_alpha_factor, 0.0, 1.0); 
+	}
+	else
+	{
+		color_sample = vec4(density) * u_color;
+		color_sample.rgb *= color_sample.a;
+	}
+
+	return color_sample;
+
+}
+
 //Main
 void main()
 {
@@ -64,11 +83,10 @@ void main()
 		if(density <= u_density_threshold)
 		{
 			//Classification: Map color
-			vec4 sample_color = vec4(density) * u_color;
-			sample_color.rgb *= sample_color.a;
+			vec4 color_sample = map_color(density);
 
 			//Composition: Accumulate color
-			output_color += u_step_length * (1.0 - output_color.a) * sample_color;
+			output_color += u_step_length * (1.0 - output_color.a) * color_sample;
 		}
 
 		//Update position

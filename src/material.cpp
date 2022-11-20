@@ -115,6 +115,7 @@ VolumeMaterial::VolumeMaterial()
 	//Transfer function
 	transfer_function = false;
 	current_transfer_texture = 0;
+	alpha_factor = 1.f;
 	if (transfer_textures.empty()) loadTransferTextures();
 }
 
@@ -139,6 +140,7 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_jittering_type", jittering_type);
 	shader->setUniform("u_transfer_function", transfer_function);
 	shader->setUniform("u_current_transfer_texture", current_transfer_texture);
+	shader->setUniform("u_alpha_factor", alpha_factor);
 
 	//Textures
 	int texture_slot = 0;
@@ -216,7 +218,6 @@ void VolumeMaterial::renderInMenu()
 
 	//Transfer function
 	if(!transfer_textures.empty()) ImGui::Checkbox("Transfer function", &transfer_function);
-	
 	if (transfer_function)
 	{
 		if (ImGui::BeginCombo("Transfer Texture", transfer_table[current_transfer_texture].c_str()))
@@ -232,6 +233,7 @@ void VolumeMaterial::renderInMenu()
 			}
 			ImGui::EndCombo();
 		}
+		ImGui::SliderFloat("Alpha factor", &alpha_factor, 0.0001, 100.f, "%.4f", 10.f);
 	}
 }
 
