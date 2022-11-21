@@ -17,6 +17,8 @@ uniform bool u_transfer_function;
 uniform int u_current_transfer_texture;
 uniform float u_alpha_factor;
 uniform sampler2DArray u_transfer_textures;
+uniform bool u_volume_clipping;
+uniform vec4 u_plane_parameters;
 
 //Interpolated
 in vec3 v_position;
@@ -62,7 +64,23 @@ vec4 map_color(const float density)
 	}
 
 	return color_sample;
+}
 
+//Volume clipping
+bool check_clipping(vec3 pos)
+{
+	if(u_volume_clipping)
+	{
+		//Auxiliar var
+		float equation_result = u_plane_parameters.x * pos.x + u_plane_parameters.y * pos.y +  u_plane_parameters.z * pos.z +  u_plane_parameters.w;
+
+		//Check plane clipping
+		if(equation_result > 0) return true;
+		else return false;
+	}
+
+	return false;
+	
 }
 
 //Main
@@ -77,20 +95,24 @@ void main()
 	//Main loop
 	for( int i = 0; i < ITERATIONS; ++i )
 	{
-		//Get texture coordinates
-		vec3 texture_coordinates = (sample_position + vec3(1.0)) / 2.0;
-
-		//Get density value
-		float density = texture(u_texture, texture_coordinates).x;
-
-		//Apply density threshold
-		if(density <= u_density_threshold)
+		//Check plane clipping
+		if(!check_clipping(sample_position))
 		{
-			//Classification: Map color
-			vec4 color_sample = map_color(density);
+			//Get texture coordinates
+			vec3 texture_coordinates = (sample_position + vec3(1.0)) / 2.0;
 
-			//Composition: Accumulate color
-			output_color += u_step_length * (1.0 - output_color.a) * color_sample;
+			//Get density value
+			float density = texture(u_texture, texture_coordinates).x;
+
+			//Apply density threshold
+			if(density <= u_density_threshold)
+			{
+				//Classification: Map color
+				vec4 color_sample = map_color(density);
+
+				//Composition: Accumulate color
+				output_color += u_step_length * (1.0 - output_color.a) * color_sample;
+			}
 		}
 
 		//Update position

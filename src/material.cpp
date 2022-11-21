@@ -116,7 +116,11 @@ VolumeMaterial::VolumeMaterial()
 	transfer_function = false;
 	current_transfer_texture = 0;
 	alpha_factor = 1.f;
-	if (transfer_textures == NULL) loadTransferTextures();
+	loadTransferTextures();
+
+	//Volume clipping
+	volume_clipping = false;
+	plane_parameters = Vector4(0.f, 0.25, 0.f, -0.09);	
 }
 
 VolumeMaterial::~VolumeMaterial()
@@ -141,6 +145,8 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_transfer_function", transfer_function);
 	shader->setUniform("u_current_transfer_texture", current_transfer_texture);
 	shader->setUniform("u_alpha_factor", alpha_factor);
+	shader->setUniform("u_volume_clipping", volume_clipping);
+	shader->setUniform("u_plane_parameters", plane_parameters);
 
 	//Textures
 	int texture_slot = 0;
@@ -241,6 +247,10 @@ void VolumeMaterial::renderInMenu()
 		}
 		ImGui::SliderFloat("Alpha factor", &alpha_factor, 0.0001, 100.f, "%.4f", 10.f);
 	}
+
+	//Volume clipping
+	ImGui::Checkbox("Volume clipping", &volume_clipping);
+	if (volume_clipping) ImGui::SliderFloat4("Plane Parameters", &plane_parameters.x, -2.f, 2.f, "%.6f");
 }
 
 void VolumeMaterial::loadVolumes()
@@ -284,6 +294,11 @@ void VolumeMaterial::loadVolumes()
 
 void VolumeMaterial::loadTransferTextures()
 {
+	//Check if transfer textures has already been loaded
+	const char* storage_name = "transfer_texture";
+	Texture* storage_texture = Texture::onlyGet(storage_name);
+	if (storage_texture != NULL) return;
+
 	//Declare varaibles
 	string current_path = filesystem::current_path().string();
 	string images_path = current_path + "\\data\\images";
@@ -326,7 +341,7 @@ void VolumeMaterial::loadTransferTextures()
 		return;
 	}
 	transfer_textures = new Texture();
-	bool success = transfer_textures->uploadTextureArray(filepaths);
+	bool success = transfer_textures->uploadTextureArray(filepaths, storage_name);
 
 	//Check that texture is right
 	if (!success)

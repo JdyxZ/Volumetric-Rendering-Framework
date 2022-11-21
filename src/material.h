@@ -68,24 +68,34 @@ public:
 	VolumeMaterial();
 	~VolumeMaterial();
 
-	//Attributes
+	//Main attributes
 	VolumeNode* volume_node = NULL;
-	Volume* current_volume = NULL;
-	string current_volume_key;
-	loadedVolumes volumes;
 	Matrix44 inverse_model;
-	Texture* blue_noise;
 	float step_length;
 	float brightness;
 	float alpha_cutoff;
 	float density_threshold;
+
+	//Volume loader
+	Volume* current_volume = NULL;
+	string current_volume_key;
+	loadedVolumes volumes;
+
+	//Jittering
+	Texture* blue_noise;
 	bool jittering;
 	Jittering jittering_type;
+
+	//Transfer function
 	bool transfer_function;
 	int current_transfer_texture;
 	float alpha_factor;
 	Texture* transfer_textures = NULL;
 	map<int, string> transfer_table;
+
+	//Volume clipping
+	bool volume_clipping;
+	Vector4 plane_parameters;
 
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);

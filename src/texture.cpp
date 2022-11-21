@@ -248,6 +248,29 @@ Texture* Texture::Get(const char* filename, bool mipmaps, unsigned int wrap)
 	return texture;
 }
 
+Texture* Texture::onlyGet(const char* filename)
+{
+	assert(filename);
+
+	//Check if loaded
+	auto it = sTexturesLoaded.find(filename);
+	if (it != sTexturesLoaded.end())
+		return it->second;
+	else
+		return NULL;
+}
+
+bool Texture::checkName(const char* name)
+{
+	assert(name);
+
+	auto result = sTexturesLoaded.find(name);
+	if (result == sTexturesLoaded.end())
+		return false;
+	else
+		return true;
+}
+
 bool Texture::load(const char* filename, bool mipmaps, unsigned int wrap, unsigned int type)
 {
 	std::string str = filename;
@@ -441,7 +464,7 @@ void Texture::uploadAsArray(unsigned int texture_size, bool mipmaps)
 		delete[] data;
 }
 
-bool Texture::uploadTextureArray(std::vector<std::string> filepaths)
+bool Texture::uploadTextureArray(std::vector<std::string> filepaths, const char* name)
 {
 	//Declare vars
 	size_t num_textures = filepaths.size();
@@ -571,6 +594,9 @@ bool Texture::uploadTextureArray(std::vector<std::string> filepaths)
 	//Upload texture
 	glBindTexture(this->texture_type, 0);
 	assert(checkGLErrors() && "Error uploading texture");
+
+	//Append texture to the texture manager
+	setName(name);
 
 	//Delete images from memory
 	for (u_int i = 0; i < num_textures; i++)
