@@ -163,7 +163,8 @@ bool checkGLErrors()
 
 	if ((errCode = glGetError()) != GL_NO_ERROR) {
 		errString = gluErrorString(errCode);
-		std::cerr << "OpenGL Error: " << errString << std::endl;
+		std::cerr << "\nOpenGl Error 0x" << std::hex << errCode;
+		std::cerr << ": " << errString << std::endl;
 		return false;
 	}
 	#endif

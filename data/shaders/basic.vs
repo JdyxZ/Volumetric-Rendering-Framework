@@ -1,19 +1,19 @@
 //Attributes
-attribute vec3 a_vertex;
-attribute vec3 a_normal;
-attribute vec2 a_uv;
-attribute vec4 a_color;
+in vec3 a_vertex;
+in vec3 a_normal;
+in vec2 a_uv;
+in vec4 a_color;
 
 //Uniforms
 uniform mat4 u_viewprojection;
 uniform mat4 u_model;
 
 //this will store the color for the pixel shader
-varying vec3 v_position;
-varying vec3 v_world_position;
-varying vec3 v_normal;
-varying vec2 v_uv;
-varying vec4 v_color;
+out vec3 v_position;
+out vec3 v_world_position;
+out vec3 v_normal;
+out vec2 v_uv;
+out vec4 v_color;
 
 void main()
 {	
@@ -24,7 +24,7 @@ void main()
 	v_position = a_vertex;
 	v_world_position = (u_model * vec4( v_position, 1.0) ).xyz;
 	
-	//store the color in the varying var to use it from the pixel shader
+	//store the color in the out var to use it from the pixel shader
 	v_color = a_color;
 
 	//store the texture coordinates

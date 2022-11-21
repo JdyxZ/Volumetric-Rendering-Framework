@@ -16,15 +16,18 @@ uniform int u_jittering_type;
 uniform bool u_transfer_function;
 uniform int u_current_transfer_texture;
 uniform float u_alpha_factor;
-uniform sampler2D u_transfer_textures[MAX_TRANSFER_TEXTURES];
+uniform sampler2DArray u_transfer_textures;
 
 //Interpolated
-varying vec3 v_position;
+in vec3 v_position;
+
+//Output
+out vec4 FragColor;
 
 //Constants
 #define ITERATIONS 1000
 
-//Auxiliar methods
+//Jiterring
 vec3 compute_offset()
 {
 	if(u_jittering)
@@ -32,7 +35,7 @@ vec3 compute_offset()
 		//Noise texture
 		if(u_jittering_type == 1)
 		{
-			return texture2D(u_blue_noise, gl_FragCoord.xy / u_blue_noise_width).rgb; 
+			return texture(u_blue_noise, gl_FragCoord.xy / u_blue_noise_width).rgb; 
 		}
 		//Pseudo-random generator
 		else
@@ -43,12 +46,13 @@ vec3 compute_offset()
 	return vec3(.0);
 }
 
+//Transfer function
 vec4 map_color(const float density)
 {
 	vec4 color_sample;
 	if(u_transfer_function)
 	{
-		color_sample = texture2D(u_transfer_textures[0], vec2(density,1));
+		color_sample = texture(u_transfer_textures, vec3(density, 1, u_current_transfer_texture));
 		color_sample.a = clamp(color_sample.a * density * u_alpha_factor, 0.0, 1.0); 
 	}
 	else
@@ -77,7 +81,7 @@ void main()
 		vec3 texture_coordinates = (sample_position + vec3(1.0)) / 2.0;
 
 		//Get density value
-		float density = texture3D(u_texture, texture_coordinates).x;
+		float density = texture(u_texture, texture_coordinates).x;
 
 		//Apply density threshold
 		if(density <= u_density_threshold)
@@ -104,5 +108,5 @@ void main()
 	if(output_color.a < u_alpha_cutoff) discard;
 
 	//Output
-	gl_FragColor = u_brightness * output_color;	
+	FragColor = u_brightness * output_color;	
 }

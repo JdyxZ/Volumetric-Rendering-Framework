@@ -84,7 +84,7 @@ public:
 	bool transfer_function;
 	int current_transfer_texture;
 	float alpha_factor;
-	vector<Texture*> transfer_textures;
+	Texture* transfer_textures = NULL;
 	map<int, string> transfer_table;
 
 	//Inherited methods

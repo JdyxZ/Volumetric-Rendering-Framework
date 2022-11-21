@@ -441,6 +441,151 @@ void Texture::uploadAsArray(unsigned int texture_size, bool mipmaps)
 		delete[] data;
 }
 
+bool Texture::uploadTextureArray(std::vector<std::string> filepaths)
+{
+	//Declare vars
+	size_t num_textures = filepaths.size();
+	bool found;
+	int max_width = 0, max_height = 0;
+	long time;
+	std::string filename, extension;
+	Image* new_image;
+	std::vector<Image*> images;
+
+	//Allocate memory
+	images.reserve(num_textures);
+
+	for (size_t i = 0; i < num_textures; i++)
+	{
+		//Loop vars
+		time = getTime();
+		filename = filepaths[i];
+		extension = filename.substr(filename.size() - 4, 4);
+		found = false;
+		new_image = new Image();
+
+		std::cout << " + Image loading: " << filename << " ... ";
+
+		if (extension == ".tga" || extension == ".TGA")
+			found = new_image->loadTGA(filename.c_str());
+		else if (extension == ".png" || extension == ".PNG")
+			found = new_image->loadPNG(filename.c_str(), true);
+		else
+		{
+			//Unsupported file type
+			std::cout << "[ERROR]: Unsupported file format" << std::endl;
+			continue;
+		}
+
+		if (!found) 
+		{
+			//File not found
+			std::cout << " [ERROR]: File not found " << std::endl;
+			continue;
+		}
+		else if (new_image->data == NULL)
+		{
+			//File content not found/not able to read
+			std::cout << " [ERROR]: File content not found or not able to read" << std::endl;
+			continue;
+		}
+
+		//Check image size
+		assert(new_image->width && new_image->height && "texture must have a size");
+
+		//Set vars
+		max_width = max(max_width, new_image->width);
+		max_height = max(max_height, new_image->height);
+		images.push_back(new_image);
+
+		//Notify success
+		std::cout << "[OK] Size: " << new_image->width << "x" << new_image->height << " Time: " << (getTime() - time) * 0.001 << "sec" << std::endl;
+	}
+
+	//Check and reset number of textures
+	num_textures = images.size();
+	if (num_textures == 0)
+	{
+		std::cout << "Error in loading textures: No image has been loaded, texture array will be NULL" << std::endl;
+		return false;
+	}
+	
+	//Create & Upload texture to VRAM
+	time = getTime();
+	std::cout << " + Texture array loading: ... ";	
+
+	//Set main texture attributes
+	this->width = (float)max_width;
+	this->height = (float)max_height;
+	this->depth = num_textures;
+	this->format = GL_RGBA;
+	this->mipmaps = false;
+	this->wrapS = this->wrapT = GL_REPEAT;
+	this->texture_type = GL_TEXTURE_2D_ARRAY;
+
+	//Delete previous texture and ensure that previous bounded texture_id is not of another texture type
+	if (this->texture_id != 0)
+		clear();
+
+	//Generate the texture and create an unique ID for the texture
+	if (this->texture_id == 0)
+		glGenTextures(1, &this->texture_id);	
+	assert(checkGLErrors() && "Error creating texture");
+
+	//We activate this id to tell opengl we are going to use this texture
+	glBindTexture(this->texture_type, this->texture_id);
+
+	//Define texture parameters
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, wrapS);
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, wrapT);
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, Texture::default_mag_filter);
+
+	//Generate the 3D storage structure
+	glTexStorage3D(GL_TEXTURE_2D_ARRAY,
+		1,				//No mipmaps
+		GL_RGBA8,		//Internal format
+		max_width,		//width
+		max_height,		//height 
+		num_textures	//Number of layers
+	);
+	assert(checkGLErrors() && "Error creating texture storage 3D");
+
+	//Append 2D textures of the images in the 3D storage structure
+	for (u_int i = 0; i < num_textures; i++)
+	{
+		//For each image, generate a texture
+		glTexSubImage3D(GL_TEXTURE_2D_ARRAY,
+			0,					//Mipmap number
+			0, 0, i,			//xoffset, yoffset, zoffset (texture_layer)
+			images[i]->width,	//width
+			images[i]->height,	//height
+			1,					//depth
+			GL_RGBA,			//format
+			GL_UNSIGNED_BYTE,	//type
+			images[i]->data		//pointer to data
+		);
+	}
+	assert(checkGLErrors() && "Error indexing textures to storage 3D");
+
+	//Upload texture
+	glBindTexture(this->texture_type, 0);
+	assert(checkGLErrors() && "Error uploading texture");
+
+	//Delete images from memory
+	for (u_int i = 0; i < num_textures; i++)
+	{
+		delete images[i];
+	}
+	images.clear();
+
+	//Notify success in the process
+	std::cout << "[OK] Size: " << max_width << "x" << max_height << " Time: " << (getTime() - time) * 0.001 << "sec" << std::endl;
+
+	//Return
+	return true;
+}
+
 void Texture::bind()
 {
 	//glEnable(this->texture_type); //enable the textures 

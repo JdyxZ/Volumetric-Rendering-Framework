@@ -111,6 +111,7 @@ public:
 	void upload3D(unsigned int format = GL_RED, unsigned int type = GL_UNSIGNED_BYTE, bool mipmaps = true, Uint8* data = NULL, unsigned int internal_format = 0);
 	void uploadCubemap(unsigned int format = GL_RGB, unsigned int type = GL_UNSIGNED_BYTE, bool mipmaps = true, Uint8** data = NULL, unsigned int internal_format = 0);
 	void uploadAsArray(unsigned int texture_size, bool mipmaps = true);
+	bool uploadTextureArray(std::vector<std::string> filepaths);
 
 	void bind();
 	void unbind();

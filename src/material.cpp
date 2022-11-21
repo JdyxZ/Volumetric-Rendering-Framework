@@ -106,7 +106,7 @@ VolumeMaterial::VolumeMaterial()
 
 	//Noise texture
 	blue_noise = new Texture();
-	blue_noise->load("data/images/blueNoise.png");
+	blue_noise->Texture::Get("data/images/blueNoise.png");
 
 	//Jittering
 	jittering = false;
@@ -116,7 +116,7 @@ VolumeMaterial::VolumeMaterial()
 	transfer_function = false;
 	current_transfer_texture = 0;
 	alpha_factor = 1.f;
-	if (transfer_textures.empty()) loadTransferTextures();
+	if (transfer_textures == NULL) loadTransferTextures();
 }
 
 VolumeMaterial::~VolumeMaterial()
@@ -154,14 +154,10 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 		shader->setUniform("u_blue_noise_width", (float)blue_noise->width);
 		shader->setTexture("u_blue_noise", blue_noise, texture_slot);
 	}
-	if (!transfer_textures.empty())
+	if (transfer_textures != NULL)
 	{
-		for (auto it = transfer_textures.begin(); it != transfer_textures.end(); ++it)
-		{
-			texture_slot++;
-			shader->setTexture("u_transfer_textures", (* it), texture_slot);
-		}
-		
+		texture_slot++;
+		shader->setTexture("u_transfer_textures", transfer_textures, texture_slot);
 	}
 		
 }
@@ -170,6 +166,12 @@ void VolumeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 {
 	if (mesh && shader)
 	{
+		//Enable OpenGl flags
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		//enable shader
 		shader->enable();
 
@@ -181,6 +183,10 @@ void VolumeMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 
 		//disable shader
 		shader->disable();
+
+		//Disable OpenGl flags
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_BLEND);
 	}
 }
 
@@ -217,7 +223,7 @@ void VolumeMaterial::renderInMenu()
 	if(jittering) ImGui::Combo("Type", (int*)&jittering_type, "Noise texture\0Random generator", 2);
 
 	//Transfer function
-	if(!transfer_textures.empty()) ImGui::Checkbox("Transfer function", &transfer_function);
+	if(transfer_textures != NULL) ImGui::Checkbox("Transfer function", &transfer_function);
 	if (transfer_function)
 	{
 		if (ImGui::BeginCombo("Transfer Texture", transfer_table[current_transfer_texture].c_str()))
@@ -281,15 +287,18 @@ void VolumeMaterial::loadTransferTextures()
 	//Declare varaibles
 	string current_path = filesystem::current_path().string();
 	string images_path = current_path + "\\data\\images";
-	string texture_name = "error";
+	vector<string> filepaths;
+	string texture_name;
 	int texture_position = 0;
 
 	//Compute transfer textures vector
 	for (const auto& entry : filesystem::directory_iterator(images_path))
 	{
 		//Get image
-		string str_path = entry.path().string();
-		string image = str_path.substr(images_path.size() + 1, str_path.size());
+		string full_path = entry.path().string();
+		string simplified_path = full_path.substr(full_path.find("data\\images"), full_path.size());
+		std::replace(simplified_path.begin(), simplified_path.end(), '\\', '/');
+		string image = full_path.substr(images_path.size() + 1, full_path.size());
 
 		//Get extension position
 		size_t ext_pos = image.find(".");
@@ -297,25 +306,32 @@ void VolumeMaterial::loadTransferTextures()
 		//Check image
 		if (ext_pos != string::npos && image.find("TT") != string::npos)
 		{
-			//Create and load new texture
-			Texture* new_texture = new Texture();
-			bool success = new_texture->load(("data/images/" + image).c_str());
+			//Save filepath
+			filepaths.push_back(simplified_path);
 
-			//Append texture to the vector if it is right
-			if (success)
-			{
-				texture_name = image.substr(0, ext_pos);
-				transfer_textures.push_back(new_texture);
-				transfer_table.emplace(make_pair(texture_position, texture_name));
-				texture_position++;
-				if (texture_position > MAX_TRANSFER_TEXTURES) 
-					return;
-			}
-			else
-			{
-				delete new_texture;
-			}
-
+			//Append image position and name to table
+			texture_name = image.substr(0, ext_pos);
+			transfer_table.emplace(make_pair(texture_position, texture_name));
+			texture_position++;
+			assert(texture_position < MAX_TRANSFER_TEXTURES && "There are more the MAX_TRANSFER_TEXTURES images to convert. Change MAX_TRANSFER_TEXTURES or delete images");
 		}
+			
 	}
+
+	//Create and upload array of transfer textures
+	if (filepaths.empty())
+	{
+		std::cout << "Error: No images have been found with prefix TT. Texture array will be NULL" << std::endl;
+		transfer_textures = NULL;
+		return;
+	}
+	transfer_textures = new Texture();
+	bool success = transfer_textures->uploadTextureArray(filepaths);
+
+	//Check that texture is right
+	if (!success)
+	{
+		transfer_textures = NULL;
+	}
+
 }
