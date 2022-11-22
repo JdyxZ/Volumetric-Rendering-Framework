@@ -120,8 +120,6 @@ public:
 
 	static void UnbindAll();
 
-	
-
 	//load without using the manager
 	bool load(const char* filename, bool mipmaps = true, unsigned int wrap = GL_REPEAT, unsigned int type = GL_UNSIGNED_BYTE);
 

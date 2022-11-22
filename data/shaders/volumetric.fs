@@ -159,11 +159,7 @@ void main()
 
 						//No composition: Final color will be phong's result
 						output_color = color_sample;
-
-						break;
 					}
-					//"First" schema: Break the loop
-					break;
 				}
 				else
 				{
@@ -175,6 +171,9 @@ void main()
 				}
 			}
 		}
+
+		//"First" schema: Break the loop
+		if(output_color.x > 0 && u_isosurfaces) break;
 
 		//Update position
 		sample_position += step_vector;
@@ -191,5 +190,5 @@ void main()
 	if(!u_isosurfaces && output_color.a < u_alpha_cutoff) discard;
 
 	//Output
-	//FragColor = u_brightness * output_color;	
+	FragColor = u_brightness * output_color;	
 }
