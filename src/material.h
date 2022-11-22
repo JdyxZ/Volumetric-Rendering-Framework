@@ -100,11 +100,13 @@ public:
 	//Isosurfaces
 	bool isosurfaces;
 	float isosurface_threshold;
+	float delta_thresholds;
 	float h;
 
 	//Phong
 	bool phong;
 	Vector3 light_direction;
+	Vector3 ambient_light;
 
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);

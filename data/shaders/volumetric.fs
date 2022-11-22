@@ -24,6 +24,7 @@ uniform float u_isosurface_threshold;
 uniform float u_h;
 uniform bool u_phong;
 uniform vec3 u_light_direction;
+uniform vec3 u_ambient_light;
 
 //Interpolated
 in vec3 v_position;
@@ -117,7 +118,7 @@ void Phong(inout vec4 color_sample, in vec3 sample_position, in vec3 texture_coo
     float RdotV = clamp(dot(R,V), 0.0, 1.0);
 
 	//Set color: We make some assumptions
-	color_sample.rgb *= (NdotL + pow(RdotV, 10.0));
+	color_sample.rgb *= u_ambient_light + (NdotL + pow(RdotV, 10.0));
 	color_sample.a = 1;
 }
 
@@ -128,6 +129,7 @@ void main()
 	vec3 offset = compute_offset();
 	vec3 step_vector = u_step_length * normalize(v_position - u_camera_local_position);
 	vec3 sample_position = v_position + step_vector * offset;
+	bool density_found = false;
 	vec4 output_color = vec4(.0);
 
 	//Main loop
@@ -145,27 +147,28 @@ void main()
 			//Apply density threshold
 			if(density <= u_density_threshold)
 			{
+				//Classification: Map color
+				vec4 color_sample = map_color(density);
+
 				//Isosurfaces
 				if(u_isosurfaces)
 				{
 					//Only values higher than the threshold are candidates to be equal to isosurface_density
 					if(density > u_isosurface_threshold)
 					{
-						//Classification: Map color
-						vec4 color_sample = map_color(density);
-
 						//Compute and apply illumination model
 						if(u_phong) Phong(color_sample, sample_position, texture_coordinates);					
 
 						//No composition: Final color will be phong's result
 						output_color = color_sample;
+
+						//"First" schema: Break the loop
+						density_found = true;
 					}
 				}
+				//Volume redering
 				else
 				{
-					//Classification: Map color
-					vec4 color_sample = map_color(density);
-
 					//Composition: Accumulate color
 					output_color += u_step_length * (1.0 - output_color.a) * color_sample;
 				}
@@ -173,7 +176,7 @@ void main()
 		}
 
 		//"First" schema: Break the loop
-		if(output_color.x > 0 && u_isosurfaces) break;
+		if(density_found) break;
 
 		//Update position
 		sample_position += step_vector;

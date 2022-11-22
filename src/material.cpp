@@ -125,11 +125,13 @@ VolumeMaterial::VolumeMaterial()
 	//Isosurfaces
 	isosurfaces = false;
 	isosurface_threshold = 0.5;
+	delta_thresholds = 0.001;
 	h = 0.02;
 
 	//Phong
 	phong = false;
 	light_direction = Vector3(0.f, 0.f, 1.f);
+	ambient_light = Vector3(1.f);
 }
 
 VolumeMaterial::~VolumeMaterial()
@@ -161,6 +163,7 @@ void VolumeMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_h", h);
 	shader->setUniform("u_phong", phong);
 	shader->setUniform("u_light_direction", light_direction);
+	shader->setUniform("u_ambient_light", ambient_light);
 
 	//Textures
 	int texture_slot = 0;
@@ -236,7 +239,7 @@ void VolumeMaterial::renderInMenu()
 	ImGui::SliderFloat("Step length", &step_length, 0.000001, 50.f, "%.6f", 10.f);
 	ImGui::SliderFloat("Brightness", &brightness, 0.0, 50.0, "%.3f", 10.f);
 	ImGui::SliderFloat("Alpha cutoff", &alpha_cutoff, 0.00000001, 1.f, "%.8f", 10.f);
-	if(isosurfaces) ImGui::SliderFloat("Density threshold", &density_threshold, isosurface_threshold + 0.05, 1.f, "%.4f", 10.f);
+	if(isosurfaces) ImGui::SliderFloat("Density threshold", &density_threshold, isosurface_threshold + delta_thresholds, 1.f, "%.4f", 10.f);
 	else ImGui::SliderFloat("Density threshold", &density_threshold, 0.0001, 1.f, "%.4f", 10.f);
 
 	//Jittering
@@ -271,10 +274,15 @@ void VolumeMaterial::renderInMenu()
 	ImGui::Checkbox("Isosurfaces", &isosurfaces);
 	if (isosurfaces)
 	{
-		ImGui::SliderFloat("Isosurface threshold", &isosurface_threshold, 0.000001, density_threshold + 0.05, "%.6f");
+		density_threshold = max(density_threshold, isosurface_threshold + delta_thresholds);
+		ImGui::SliderFloat("Isosurface threshold", &isosurface_threshold, 0.000001, 1.f - delta_thresholds, "%.6f");
 		ImGui::SliderFloat("H value", &h, 0.0001, 100.f, "%.4f", 10.f);
 		ImGui::Checkbox("Apply Phong", &phong);
-		if(phong) ImGui::SliderFloat3("Light direction", &light_direction.x, 0.f, 10.f, "%.3f", 10.f);
+		if (phong) 
+		{
+			ImGui::SliderFloat3("Light direction", &light_direction.x, 0.f, 10.f, "%.3f", 10.f);
+			ImGui::SliderFloat3("Ambient Light", &ambient_light.x, 0.f, 100.f, "%.3f", 10.f);
+		}
 	}
 }
 
