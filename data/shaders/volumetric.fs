@@ -60,7 +60,7 @@ vec4 map_color(const float density)
 	if(u_transfer_function)
 	{
 		color_sample = texture(u_transfer_textures, vec3(density, 1, u_current_transfer_texture));
-		color_sample.a = clamp(color_sample.a * density * u_alpha_factor, 0.0, 1.0); 
+		color_sample.a = color_sample.a * density * u_alpha_factor; 
 	}
 	else
 	{
@@ -159,9 +159,11 @@ void main()
 
 						//No composition: Final color will be phong's result
 						output_color = color_sample;
+
+						break;
 					}
 					//"First" schema: Break the loop
-					//break;
+					break;
 				}
 				else
 				{
@@ -189,5 +191,5 @@ void main()
 	if(!u_isosurfaces && output_color.a < u_alpha_cutoff) discard;
 
 	//Output
-	FragColor = u_brightness * output_color;	
+	//FragColor = u_brightness * output_color;	
 }
