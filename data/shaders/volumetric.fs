@@ -19,6 +19,11 @@ uniform float u_alpha_factor;
 uniform sampler2DArray u_transfer_textures;
 uniform bool u_volume_clipping;
 uniform vec4 u_plane_parameters;
+uniform bool u_isosurfaces;
+uniform float u_isosurface_threshold;
+uniform float u_h;
+uniform bool u_phong;
+uniform vec3 u_light_direction;
 
 //Interpolated
 in vec3 v_position;
@@ -80,7 +85,40 @@ bool check_clipping(vec3 pos)
 	}
 
 	return false;
-	
+}
+
+//Normal vector
+vec3 compute_normal(in vec3 coord)
+{
+	//Compute gradient
+	float row_x = texture(u_texture, vec3(coord.x + u_h, coord.y, coord.z)).x - texture(u_texture, vec3(coord.x - u_h, coord.y, coord.z)).x;
+	float row_y = texture(u_texture, vec3(coord.x, coord.y + u_h, coord.z)).x - texture(u_texture, vec3(coord.x, coord.y - u_h, coord.z)).x;
+	float row_z = texture(u_texture, vec3(coord.x, coord.y, coord.z + u_h)).x - texture(u_texture, vec3(coord.x, coord.y, coord.z - u_h)).x;
+	vec3 gradient = 1/(2*u_h) * vec3(row_x, row_y, row_z);
+
+	//Compute normal vector from gradient
+	vec3 normal_vector = normalize(-gradient);
+
+	//Return normal vector
+	return normal_vector;
+}
+
+//Illumination model
+void Phong(inout vec4 color_sample, in vec3 sample_position, in vec3 texture_coordinates)
+{
+	//Compute necessary vectors
+	vec3 L = normalize(u_light_direction);
+	vec3 N = compute_normal(texture_coordinates);
+	vec3 V = normalize(u_camera_local_position - sample_position);
+	vec3 R = normalize(reflect(-L, N));
+
+	//Compute dot products
+	float NdotL = clamp(dot(N,L), 0.0, 1.0);
+    float RdotV = clamp(dot(R,V), 0.0, 1.0);
+
+	//Set color: We make some assumptions
+	color_sample.rgb *= (NdotL + pow(RdotV, 10.0));
+	color_sample.a = 1;
 }
 
 //Main
@@ -107,11 +145,32 @@ void main()
 			//Apply density threshold
 			if(density <= u_density_threshold)
 			{
-				//Classification: Map color
-				vec4 color_sample = map_color(density);
+				//Isosurfaces
+				if(u_isosurfaces)
+				{
+					//Only values higher than the threshold are candidates to be equal to isosurface_density
+					if(density > u_isosurface_threshold)
+					{
+						//Classification: Map color
+						vec4 color_sample = map_color(density);
 
-				//Composition: Accumulate color
-				output_color += u_step_length * (1.0 - output_color.a) * color_sample;
+						//Compute and apply illumination model
+						if(u_phong) Phong(color_sample, sample_position, texture_coordinates);					
+
+						//No composition: Final color will be phong's result
+						output_color = color_sample;
+					}
+					//"First" schema: Break the loop
+					//break;
+				}
+				else
+				{
+					//Classification: Map color
+					vec4 color_sample = map_color(density);
+
+					//Composition: Accumulate color
+					output_color += u_step_length * (1.0 - output_color.a) * color_sample;
+				}
 			}
 		}
 
@@ -127,7 +186,7 @@ void main()
 	}
 
 	//Wipe black pixels
-	if(output_color.a < u_alpha_cutoff) discard;
+	if(!u_isosurfaces && output_color.a < u_alpha_cutoff) discard;
 
 	//Output
 	FragColor = u_brightness * output_color;	

@@ -97,6 +97,15 @@ public:
 	bool volume_clipping;
 	Vector4 plane_parameters;
 
+	//Isosurfaces
+	bool isosurfaces;
+	float isosurface_threshold;
+	float h;
+
+	//Phong
+	bool phong;
+	Vector3 light_direction;
+
 	//Inherited methods
 	void setUniforms(Camera* camera, Matrix44 model);
 	void render(Mesh* mesh, Matrix44 model, Camera* camera);
